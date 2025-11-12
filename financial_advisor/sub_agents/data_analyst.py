@@ -3,7 +3,7 @@ from google.adk.agents import LlmAgent
 from google.adk.models.lite_llm import LiteLlm
 
 
-MODEL = LiteLlm(model="openai/gpt-4o")
+MODEL = LiteLlm(model="openai/gpt-5-nano")
 
 
 def get_company_info(ticker: str) -> str:
@@ -156,6 +156,7 @@ data_analyst = LlmAgent(
     Use multiple focused tools to gather different types of data.
     Explain what each tool provides and present the information clearly.
     """,
+    output_key="data_analyst_result",
     tools=[
         get_company_info,
         get_stock_price,

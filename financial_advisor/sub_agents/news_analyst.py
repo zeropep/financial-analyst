@@ -3,7 +3,7 @@ from google.adk.agents import Agent
 from google.adk.models.lite_llm import LiteLlm
 
 
-MODEL = LiteLlm(model="openai/gpt-4o")
+MODEL = LiteLlm(model="openai/gpt-5-nano")
 
 
 def get_company_news(ticker: str):
@@ -43,6 +43,7 @@ news_analyst = Agent(
     
     Use external APIs to search and scrape web content for current information.
     """,
+    output_key="news_analyst_result",
     tools=[
         get_company_news,
     ],

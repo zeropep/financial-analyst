@@ -2,7 +2,7 @@ import yfinance as yf
 from google.adk.agents import Agent
 from google.adk.models.lite_llm import LiteLlm
 
-MODEL = LiteLlm(model="openai/gpt-4o")
+MODEL = LiteLlm(model="openai/gpt-5-nano")
 
 
 def get_income_statement(ticker: str):
@@ -164,6 +164,7 @@ financial_analyst = Agent(
     Analyze the financial health and performance of companies using comprehensive financial statement data.
     Focus on key financial ratios, trends, and indicators that reveal the company's financial strength.
     """,
+    output_key="financial_analyst_result",
     tools=[
         get_income_statement,
         get_balance_sheet,
