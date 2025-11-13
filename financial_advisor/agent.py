@@ -1,3 +1,4 @@
+from google.genai import types
 from google.adk.tools import ToolContext
 from google.adk.agents import Agent
 from google.adk.tools.agent_tool import AgentTool
@@ -9,7 +10,7 @@ from .prompt import PROMPT
 
 MODEL = LiteLlm("openai/gpt-5-nano")
 
-def save_advice_report(tool_context: ToolContext, summary: str):
+async def save_advice_report(tool_context: ToolContext, summary: str, ticker: str):
     state = tool_context.state
     data_analyst_result = state.get("data_analyst_result")
     financial_analyst_result = state.get("financial_analyst_result")
@@ -29,6 +30,18 @@ def save_advice_report(tool_context: ToolContext, summary: str):
 
     """
     state["report"] = report
+
+    filename = f"{ticker}_investment_advice.md"
+
+    artifact = types.Part(
+        inline_data=types.Blob(
+            mime_type="text/markdown",
+            data=report.encode("utf-8"),
+        )
+    )
+
+    await tool_context.save_artifact(filename, artifact)
+
     return {
         "success": True,
     }
